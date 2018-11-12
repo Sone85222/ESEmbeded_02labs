@@ -1,5 +1,5 @@
 CROSS-COMPILER = arm-none-eabi-
-QEMU = qemu-system-gnuarmeclipse
+QEMU = ./gnu-mcu-eclipse-qemu/bin/qemu-system-gnuarmeclipse
 
 all: asm02.bin
 
