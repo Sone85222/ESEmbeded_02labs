@@ -13,21 +13,21 @@ _start:
 	@mov # to reg
 	@
 	movs	r0, #100
-	movs	r1, #0x11000000
-	mov	r2, #102
+	movs.w	r1, #0x11000000
+	mov.w		r2, #102
 	movw	r3, #103
 
 	@
 	@mov reg to reg
 	@
 	movs	r4, r0
-	mov	r5, r1
+	mov		r5, r1
 
 	@
 	@add
 	@
 	adds	r4, r1, #1
-	add	r5, r4, #5
+	add		r5, r4, #5
 
 	@
 	@push
@@ -47,15 +47,15 @@ _start:
 	@ldr
 	@
 	movs	r0, #0x0
-	ldr	r1, [r0]
-	ldr	r2, [r0, #4]
+	ldr		r1, [r0]
+	ldr		r2, [r0, #4]
 
 	@
 	@str
 	@
 	movs	r0, #0x20000000
-	str	r1, [r0]
-	str	r2, [r0, #4]
+	str		r1, [r0]
+	str		r2, [r0, #4]
 
 	@
 	@b bl
@@ -71,3 +71,4 @@ lable01:
 	nop
 	nop
 	bx	lr
+	@blx	sleep
