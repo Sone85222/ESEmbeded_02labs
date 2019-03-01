@@ -16,13 +16,14 @@ This is the labs files, please clone this repo.
 ## HW02
 改變 asm02.s 中
 ``` 	
-push	{r1, r2, r3, r4}
-pop	    {r4, r5, r6, r7}
+push    {r1, r2, r3, r4}
+pop     {r4, r5, r6, r7}
 ```
 registers 的順序,以 qemu 運行,並以 gdb 觀察,
 請以 Markdown 語法完成一份 **簡易報告**,
 紀錄於 readme.md ,並 push 至 gtihub 繳交作業.
-[Markdown 語法參考](https://markdown.tw)
+* [Markdown 語法參考](https://markdown.tw)
+
 Markdown 簡易範例
 ```
 最高階標題
@@ -65,7 +66,12 @@ Markdown 簡易範例
 `程式碼`
 ```
 `程式碼`
+
 ```
-[插入連結 ex:Google](https://www.google.com.tw)
+    (Tab 縮排)程式碼
 ```
-[插入連結 ex:Google](https://www.google.com.tw)
+    (Tab 縮排)程式碼
+```
+[插入連結 ex: Google](https://www.google.com.tw)
+```
+[插入連結 ex: Google](https://www.google.com.tw)
