@@ -61,6 +61,7 @@ _start:
 	@b bl
 	@
 	bl	lable01
+	nop
 
 sleep:
 	b sleep
@@ -70,5 +71,5 @@ sleep:
 lable01:
 	nop
 	nop
-	bx	lr
-	@blx	sleep
+	@bx	lr
+	blx	sleep
