@@ -92,7 +92,7 @@ HW02 範例
 ## 實驗題目
 將 ams02.s 中 最後 `bx    lr` 改為直接跳至 label `sleep`，觀察結果及理解原因。
 ## 實驗步驟
-1. 根據原始程式碼，`bx	lr`  lr 存的位置是 `bl    label01` 的下一行為 label sleep 之位置。
+1. 根據原始程式碼，`bx	lr`  lr 存的位置是 `bl    label01` 的下一行為 label `sleep` 之位置。
 ```c=63
 	bl	lable01
 
@@ -106,7 +106,7 @@ lable01:
 	nop
 	bx	lr
 ```
-2. 根據 [Arm Information Center](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204ic/Cihfddaf.html) ，bx 屬於 op2，後方必須接 registers，如 lr 。
+2. 根據 [ARM Information Center](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204ic/Cihfddaf.html) ，bx 屬於 op2，後方必須接 registers，如 lr 。
 ```
 op2{cond} Rm
 
@@ -172,8 +172,7 @@ lable01:
    │0x48    movs   r0, r0                                                                                                                                                                      │
    │0x4a    movs   r0, r0                                                                                                                                                                      │
    │0x4c    movs   r0, r0                                                                                                                                                                      │
-   └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-remote Thread 1 In:                                                                                                                                                              L??   PC: 0x40
+   └────────────────────────────────────────────────────────────────────────
 ```
 * 執行 `blx sleep`  後
 ```
@@ -208,7 +207,7 @@ remote Thread 1 In:                                                             
    │0x48    movs   r0, r0                                                                                                                                                                      │
    │0x4a    movs   r0, r0                                                                                                                                                                      │
    │0x4c    movs   r0, r0                                                                                                                                                                      │
-   └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   └────────────────────────────────────────────────────────────────────────
 ```
 * 再執行一次 `si`
 ```
@@ -264,9 +263,18 @@ Remote connection closed
 ```
 qemu 的模擬掛了 why??
 而且`blx sleep` 在 qemu 中卻跳至 `0x3c` 而不是 label `sleep` 所在的 `0x3a` why??
-4. 根據 [Arm and Thumb instruction set overview](http://www.keil.com/support/man/docs/ARMASM/armasm_dom1359731139853.htm)
+
+## 結果與討論
+根據 [ARM and Thumb instruction set overview](http://www.keil.com/support/man/docs/ARMASM/armasm_dom1359731139853.htm)
 
 * All ARM instructions are 32 bits long. Instructions are stored word-aligned, so the least significant two bits of instruction addresses are always zero in ARM state.
 * Thumb instructions are either 16 or 32 bits long. Instructions are stored half-word aligned. Some instructions use the least significant bit of the address to determine whether the code being branched to is Thumb code or ARM code.
 
-`blx sleep` 的 `sleep` 的 least significant bit 為 0 ，所以將轉換為 Arm instructions 來執行後續的指令，而 Arm instructions 為一個字節對齊，所以 assembler 自動將 `0x3a` 補齊至 `0x3c`，
+`blx sleep` 的 `sleep` 的 least significant bit 為 0 ，所以將轉換為 ARM instruction 來執行後續的指令，而 ARM instructions 為一個字節對齊，所以 assembler 自動將 `0x3a` 補齊至 `0x3c` 。
+[Cortex-M4-ARM Developer](https://developer.arm.com/products/processors/cortex-m/cortex-m4) 表示 Cortex-M4 的 ISA Support Thumb/Thumb-2 指令，因此若切換至 ARM Instruction 並且執行的話會產生 Exception 其中的 UsageFault 造成 qemu 關閉。
+
+另外，根據 [ARM Information Center](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0473m/dom1359731139098.html)，Cortex-M4 並不是使用 CPSR，PSR相關的內容請參考 [ARM Information Center](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui1095a/CHDBIBGJ.html)，比起使用 qemu，實際上板子以及使用者手冊才比較精確。
+```
+Note:
+The CPSR is not present in ARMv6-M and ARMv7-M processors.
+```
