@@ -270,8 +270,9 @@ qemu 的模擬掛了 why??
 * All ARM instructions are 32 bits long. Instructions are stored word-aligned, so the least significant two bits of instruction addresses are always zero in ARM state.
 * Thumb instructions are either 16 or 32 bits long. Instructions are stored half-word aligned. Some instructions use the least significant bit of the address to determine whether the code being branched to is Thumb code or ARM code.
 
-`blx sleep` 的 `sleep` 的 least significant bit 為 0 ，所以將轉換為 ARM instruction 來執行後續的指令，而 ARM instructions 為一個字節對齊，所以 assembler 自動將 `0x3a` 補齊至 `0x3c` 。
-[Cortex-M4-ARM Developer](https://developer.arm.com/products/processors/cortex-m/cortex-m4) 表示 Cortex-M4 的 ISA Support Thumb/Thumb-2 指令，因此若切換至 ARM Instruction 並且執行的話會產生 Exception 其中的 UsageFault 造成 qemu 關閉。
+`blx sleep` 的 `sleep` 的 least significant bit 為 0 ，所以將轉換為 ARM instruction 來執行後續的指令，而 ARM instruction 為一個字節對齊，所以 compiler 自動將 `0x3a` 補齊至 `0x3c` 。
+
+[Cortex-M4-ARM Developer](https://developer.arm.com/products/processors/cortex-m/cortex-m4) 表示 Cortex-M4 的 ISA Support Thumb/Thumb-2 指令，不支援 ARM 指令，因此若切換至 ARM 指令，並且執行的話會產生 Exception (UsageFault) 造成 qemu 關閉。
 
 另外，根據 [ARM Information Center](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0473m/dom1359731139098.html)，Cortex-M4 並不是使用 CPSR，PSR相關的內容請參考 [ARM Information Center](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui1095a/CHDBIBGJ.html)，比起使用 qemu，實際上板子以及使用者手冊才比較精確。
 ```
