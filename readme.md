@@ -21,6 +21,9 @@ This is the labs files, please clone this repo.
 push    {r1, r2, r3, r4}
 pop     {r4, r5, r6, r7}
 ```
+## 1. 實驗題目
+## 2. 實驗步驟
+## 3. 結果與討論
 
 * [Markdown 語法參考](https://markdown.tw)
 
@@ -89,9 +92,9 @@ pop     {r4, r5, r6, r7}
 
 HW02 範例
 ===
-## 實驗題目
+## 1. 實驗題目
 將 ams02.s 中 最後 `bx    lr` 改為直接跳至 label `sleep`，觀察結果及理解原因。
-## 實驗步驟
+## 2. 實驗步驟
 1. 根據原始程式碼，`bx	lr`  lr 存的位置是 `bl    label01` 的下一行為 label `sleep` 之位置。
 ```c=63
 	bl	lable01
@@ -264,7 +267,7 @@ Remote connection closed
 qemu 的模擬掛了 why??
 而且`blx sleep` 在 qemu 中卻跳至 `0x3c` 而不是 label `sleep` 所在的 `0x3a` why??
 
-## 結果與討論
+## 3. 結果與討論
 根據 [ARM and Thumb instruction set overview](http://www.keil.com/support/man/docs/ARMASM/armasm_dom1359731139853.htm)
 
 * All ARM instructions are 32 bits long. Instructions are stored word-aligned, so the least significant two bits of instruction addresses are always zero in ARM state.
