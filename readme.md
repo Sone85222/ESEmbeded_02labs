@@ -21,9 +21,10 @@ This is the labs files, please clone this repo.
 push    {r1, r2, r3, r4}
 pop     {r4, r5, r6, r7}
 ```
-## 1. 實驗題目
-## 2. 實驗步驟
-## 3. 結果與討論
+### 報告格式：
+#### 1. 實驗題目
+#### 2. 實驗步驟
+#### 3. 結果與討論
 
 * [Markdown 語法參考](https://markdown.tw)
 
